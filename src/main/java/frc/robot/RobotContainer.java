@@ -7,11 +7,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.Buttons;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ManualDriveCommand;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -29,6 +34,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
 
   private final Joystick driverStick = new Joystick(Constants.driverJoystickID);
   private final Joystick operatorStick = new Joystick(Constants.operatorJoystickID);
@@ -51,8 +58,21 @@ public class RobotContainer {
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings() { 
+    new JoystickButton(operatorStick, Buttons.climbUpButton).whileHeld(new RunCommand(() -> {
+      m_climbSubsystem.climbUp();
+    },m_climbSubsystem)).whenReleased(new InstantCommand(() -> {
+      m_climbSubsystem.stopMotor();
+    }, m_climbSubsystem));
+
+    new JoystickButton(operatorStick, Buttons.climbDownButton).whileHeld(new RunCommand(() -> {
+      m_climbSubsystem.climbDown();
+    },m_climbSubsystem)).whenReleased(new InstantCommand(() -> {
+      m_climbSubsystem.stopMotor();
+    }, m_climbSubsystem));
   }
+    
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
