@@ -22,4 +22,14 @@ public final class Constants {
         public static int backLeftMotorID = 1;
         public static int backRightMotorID = 3;
     }
+
+    public static final class ClimbConstant {
+        public static int climbMotorID = 5;
+        public static double climbMotorSpeed = 0.5;
+    }
+//Bellow the buttons for the commands are declared, subject to change. 
+    public static final class Buttons {
+        public static int climbUpButton = 3;
+        public static int climbDownButton = 4; 
+    }
 }
