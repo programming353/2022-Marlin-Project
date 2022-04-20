@@ -23,7 +23,7 @@ public final class Constants {
         public static int backRightMotorID = 3;
     }
 
-    public static final class ClimbConstant {
+    public static final class ClimbConstants {
         public static int climbMotorID = 5;
         public static double climbMotorSpeed = 0.5;
     }
