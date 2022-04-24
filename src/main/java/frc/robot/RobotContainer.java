@@ -58,21 +58,15 @@ public class RobotContainer {
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() { 
+  private void configureButtonBindings() {
     new JoystickButton(operatorStick, Buttons.climbUpButton).whileHeld(new RunCommand(() -> {
       m_climbSubsystem.climbUp();
-    },m_climbSubsystem)).whenReleased(new InstantCommand(() -> {
-      m_climbSubsystem.stopMotor();
-    }, m_climbSubsystem));
+    }, m_climbSubsystem)).whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
 
-    new JoystickButton(operatorStick, Buttons.climbDownButton).whileHeld(new RunCommand(() -> {
-      m_climbSubsystem.climbDown();
-    },m_climbSubsystem)).whenReleased(new InstantCommand(() -> {
-      m_climbSubsystem.stopMotor();
-    }, m_climbSubsystem));
+    new JoystickButton(operatorStick, Buttons.climbDownButton)
+        .whileHeld(new RunCommand(() -> m_climbSubsystem.climbDown(), m_climbSubsystem))
+        .whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
   }
-    
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

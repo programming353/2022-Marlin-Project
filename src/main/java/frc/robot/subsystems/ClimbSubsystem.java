@@ -12,14 +12,15 @@ import frc.robot.Constants.ClimbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   private CANSparkMax climbMotor = new CANSparkMax(ClimbConstants.climbMotorID, MotorType.kBrushless);
+
   /** Creates a new ClimbSubsystem. */
-    
-  public ClimbSubsystem() {}
+  public ClimbSubsystem() {
+  }
 
   public void climbUp() {
     climbMotor.set(ClimbConstants.climbMotorSpeed);
   }
-  
+
   public void climbDown() {
     climbMotor.set(-ClimbConstants.climbMotorSpeed);
   }
