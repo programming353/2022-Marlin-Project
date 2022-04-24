@@ -13,6 +13,7 @@ import frc.robot.commands.ManualDriveCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -34,6 +35,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+
+  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
 
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
 
@@ -59,9 +62,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(operatorStick, Buttons.climbUpButton).whileHeld(new RunCommand(() -> {
-      m_climbSubsystem.climbUp();
-    }, m_climbSubsystem)).whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
+    new JoystickButton(operatorStick, Buttons.climbUpButton)
+        .whileHeld(new RunCommand(() -> m_climbSubsystem.climbUp(), m_climbSubsystem))
+        .whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
 
     new JoystickButton(operatorStick, Buttons.climbDownButton)
         .whileHeld(new RunCommand(() -> m_climbSubsystem.climbDown(), m_climbSubsystem))
