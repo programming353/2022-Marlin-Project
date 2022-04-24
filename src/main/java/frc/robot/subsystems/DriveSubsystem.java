@@ -21,10 +21,13 @@ public class DriveSubsystem extends SubsystemBase {
   private MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeftMotor, backLeftMotor);
   private MotorControllerGroup rightMotors = new MotorControllerGroup(frontRightMotor, backRightMotor);
 
-  private DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+  private DifferentialDrive differentialDrive;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+    rightMotors.setInverted(true);
+
+    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
   }
 
   public void manualDrive(double forward, double turn) {
