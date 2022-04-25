@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -20,6 +21,9 @@ public class DriveSubsystem extends SubsystemBase {
   private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.backLeftMotorID, MotorType.kBrushless);
   private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.frontRightMotorID, MotorType.kBrushless);
   private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.backRightMotorID, MotorType.kBrushless);
+
+  private RelativeEncoder leftEncoder = frontLeftMotor.getEncoder();
+  private RelativeEncoder rightEncoder = frontRightMotor.getEncoder();
 
   private MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeftMotor, backLeftMotor);
   private MotorControllerGroup rightMotors = new MotorControllerGroup(frontRightMotor, backRightMotor);
@@ -38,6 +42,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+    rightMotors.setInverted(true);
+
+    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+    differentialDrive.setSafetyEnabled(true);
+
+    driveOdometry = new DifferentialDriveOdometry(navXSensor.getRotation2d());
   }
 
   public void manualDrive(double forward, double turn) {
@@ -60,5 +70,11 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    driveOdometry.update(navXSensor.getRotation2d(), leftEncoder.getPosition() * conversionToMeters,
+        rightEncoder.getPosition() * conversionToMeters);
+  }
+
+  public Pose2d getPose() {
+    return driveOdometry.getPoseMeters();
   }
 }
