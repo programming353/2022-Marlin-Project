@@ -48,7 +48,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     m_driveSubsystem
-        .setDefaultCommand(new ManualDriveCommand(driverStick.getY(), driverStick.getX(), m_driveSubsystem));
+        .setDefaultCommand(new ManualDriveCommand(driverStick::getY, driverStick::getX, m_driveSubsystem));
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -63,12 +63,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(operatorStick, Buttons.climbUpButton)
-        .whileHeld(new RunCommand(() -> m_climbSubsystem.climbUp(), m_climbSubsystem))
-        .whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
+        .whileHeld(new RunCommand(m_climbSubsystem::climbUp, m_climbSubsystem))
+        .whenReleased(new InstantCommand(m_climbSubsystem::climbDown, m_climbSubsystem));
 
     new JoystickButton(operatorStick, Buttons.climbDownButton)
-        .whileHeld(new RunCommand(() -> m_climbSubsystem.climbDown(), m_climbSubsystem))
-        .whenReleased(new InstantCommand(() -> m_climbSubsystem.stopMotor(), m_climbSubsystem));
+        .whileHeld(new RunCommand(m_climbSubsystem::climbDown, m_climbSubsystem))
+        .whenReleased(new InstantCommand(m_climbSubsystem::stopMotor, m_climbSubsystem));
   }
 
   /**

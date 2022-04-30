@@ -4,17 +4,19 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class ManualDriveCommand extends CommandBase {
   private final DriveSubsystem driveSubsystem;
 
-  private double forward;
-  private double turn;
+  private DoubleSupplier forward;
+  private DoubleSupplier turn;
 
   /** Creates a new ManualDriveCommand. */
-  public ManualDriveCommand(double forward, double turn, DriveSubsystem drive) {
+  public ManualDriveCommand(DoubleSupplier forward, DoubleSupplier turn, DriveSubsystem drive) {
     driveSubsystem = drive;
 
     this.forward = forward;
@@ -31,7 +33,7 @@ public class ManualDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.manualDrive(forward, turn);
+    driveSubsystem.manualDrive(-forward.getAsDouble(), turn.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
