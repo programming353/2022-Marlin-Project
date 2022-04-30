@@ -18,11 +18,11 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void climbUp() {
-    climbMotor.set(ClimbConstants.climbMotorSpeed);
+    climbMotor.set(-ClimbConstants.climbMotorSpeed);
   }
 
   public void climbDown() {
-    climbMotor.set(-ClimbConstants.climbMotorSpeed);
+    climbMotor.set(ClimbConstants.climbMotorSpeed);
   }
 
   public void stopMotor() {
