@@ -36,8 +36,6 @@ public class RobotContainer {
 
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
-  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
-
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
 
   private final Joystick driverStick = new Joystick(Constants.driverJoystickID);
@@ -64,7 +62,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(operatorStick, Buttons.climbUpButton)
         .whileHeld(new RunCommand(m_climbSubsystem::climbUp, m_climbSubsystem))
-        .whenReleased(new InstantCommand(m_climbSubsystem::climbDown, m_climbSubsystem));
+        .whenReleased(new InstantCommand(m_climbSubsystem::stopMotor, m_climbSubsystem));
 
     new JoystickButton(operatorStick, Buttons.climbDownButton)
         .whileHeld(new RunCommand(m_climbSubsystem::climbDown, m_climbSubsystem))

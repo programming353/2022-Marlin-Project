@@ -32,9 +32,8 @@ public final class Constants {
         public static double climbMotorSpeed = 0.5;
     }
 
-    // Bellow the buttons for the commands are declared, subject to change.
     public static final class Buttons {
-        public static int climbUpButton = 3;
-        public static int climbDownButton = 4;
+        public static int climbUpButton = 5;
+        public static int climbDownButton = 10;
     }
 }
