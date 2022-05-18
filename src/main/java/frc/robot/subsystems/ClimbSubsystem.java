@@ -17,12 +17,8 @@ public class ClimbSubsystem extends SubsystemBase {
   public ClimbSubsystem() {
   }
 
-  public void climbUp() {
+  public void climb() {
     climbMotor.set(-ClimbConstants.climbMotorSpeed);
-  }
-
-  public void climbDown() {
-    climbMotor.set(ClimbConstants.climbMotorSpeed);
   }
 
   public void stopMotor() {

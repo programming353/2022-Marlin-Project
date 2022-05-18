@@ -33,7 +33,11 @@ public class ManualDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.manualDrive(-forward.getAsDouble() * 0.75, turn.getAsDouble() * 0.75);
+    if (Math.abs(forward.getAsDouble()) < 0.02 && Math.abs(turn.getAsDouble()) < 0.02) {
+      driveSubsystem.manualDrive(0, 0);
+    } else {
+      driveSubsystem.manualDrive(-forward.getAsDouble() * 0.75, turn.getAsDouble() * 0.75);
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -45,12 +46,13 @@ public class DriveSubsystem extends SubsystemBase {
     rightMotors.setInverted(true);
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-    differentialDrive.setSafetyEnabled(true);
+    // differentialDrive.setSafetyEnabled(true);
 
     driveOdometry = new DifferentialDriveOdometry(navXSensor.getRotation2d());
   }
 
   public void manualDrive(double forward, double turn) {
+    SmartDashboard.putNumber("Forward" , forward);
     differentialDrive.arcadeDrive(slewFilter.calculate(forward), turn);
   }
 

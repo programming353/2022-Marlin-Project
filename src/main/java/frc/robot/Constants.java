@@ -22,8 +22,8 @@ public final class Constants {
 
     public static final class DriveConstants {
         public static int frontLeftMotorID = 4;
-        public static int frontRightMotorID = 2;
-        public static int backLeftMotorID = 1;
+        public static int frontRightMotorID = 1;
+        public static int backLeftMotorID = 2;
         public static int backRightMotorID = 3;
     }
 
@@ -33,7 +33,6 @@ public final class Constants {
     }
 
     public static final class Buttons {
-        public static int climbUpButton = 5;
-        public static int climbDownButton = 10;
+        public static int climbButton = 5;
     }
 }
