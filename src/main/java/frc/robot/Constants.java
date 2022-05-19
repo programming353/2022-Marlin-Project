@@ -34,5 +34,13 @@ public final class Constants {
 
     public static final class Buttons {
         public static int climbButton = 5;
+        public static int intakeButton = 14; 
+        public static int outakeButton = 13; 
+    }
+
+    public static final class IntakeConstants {
+        public static int intakeMotorID = 6;  
+        public static int conveyorID = 7; 
+        public static double intakeSpeed = 0.5; 
     }
 }

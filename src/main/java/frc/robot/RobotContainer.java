@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.Buttons;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ManualDriveCommand;
+import frc.robot.subsystems.BallTransitSystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -37,6 +38,8 @@ public class RobotContainer {
 
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
 
+  private final BallTransitSystem m_ballTransitSystem = new BallTransitSystem();
+
   private final Joystick driverStick = new Joystick(Constants.driverJoystickID);
   private final Joystick operatorStick = new Joystick(Constants.operatorJoystickID);
 
@@ -62,6 +65,14 @@ public class RobotContainer {
     new JoystickButton(operatorStick, Buttons.climbButton)
         .whileHeld(new RunCommand(m_climbSubsystem::climb, m_climbSubsystem))
         .whenReleased(new InstantCommand(m_climbSubsystem::stopMotor, m_climbSubsystem));
+
+    new JoystickButton(operatorStick, Buttons.intakeButton)
+        .whileHeld(new RunCommand(m_ballTransitSystem::intake, m_ballTransitSystem))
+        .whenReleased(new InstantCommand(m_ballTransitSystem::stop, m_ballTransitSystem));
+
+    new JoystickButton(operatorStick, Buttons.outakeButton)
+        .whileHeld(new RunCommand(m_ballTransitSystem::outake, m_ballTransitSystem))
+        .whenReleased(new InstantCommand(m_ballTransitSystem::stop, m_ballTransitSystem));
   }
 
   /**
