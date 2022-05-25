@@ -36,7 +36,7 @@ public class ManualDriveCommand extends CommandBase {
     if (Math.abs(forward.getAsDouble()) < 0.02 && Math.abs(turn.getAsDouble()) < 0.02) {
       driveSubsystem.manualDrive(0, 0);
     } else {
-      driveSubsystem.manualDrive(-forward.getAsDouble() * 0.75, turn.getAsDouble() * 0.75);
+      driveSubsystem.manualDrive(-forward.getAsDouble() * 0.95, turn.getAsDouble() * 0.75);
     }
   }
 

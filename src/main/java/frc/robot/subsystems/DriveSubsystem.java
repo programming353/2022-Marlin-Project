@@ -39,28 +39,34 @@ public class DriveSubsystem extends SubsystemBase {
 
   private AHRS navXSensor = new AHRS(SPI.Port.kMXP);
 
-  SlewRateLimiter slewFilter = new SlewRateLimiter(0.5);
+  SlewRateLimiter forwardFilter = new SlewRateLimiter(0.75);
+  SlewRateLimiter turnFilter = new SlewRateLimiter(0.75);
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     rightMotors.setInverted(true);
 
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-    // differentialDrive.setSafetyEnabled(true);
+    differentialDrive.setSafetyEnabled(false);
 
     driveOdometry = new DifferentialDriveOdometry(navXSensor.getRotation2d());
   }
 
   public void manualDrive(double forward, double turn) {
-    SmartDashboard.putNumber("Forward" , forward);
-    differentialDrive.arcadeDrive(slewFilter.calculate(forward), turn);
+    // if(forward == 0 && turn == 0) {
+    //   forwardFilter.reset(0);
+    //   turnFilter.reset(0);
+    // }
+
+    differentialDrive.arcadeDrive(forwardFilter.calculate(forward), turnFilter.calculate(turn));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    driveOdometry.update(navXSensor.getRotation2d(), leftEncoder.getPosition() * conversionToMeters,
-        rightEncoder.getPosition() * conversionToMeters);
+    // driveOdometry.update(navXSensor.getRotation2d(), leftEncoder.getPosition() *
+    // conversionToMeters,
+    // rightEncoder.getPosition() * conversionToMeters);
   }
 
   public Pose2d getPose() {

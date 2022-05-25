@@ -12,6 +12,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class BallTransitSystem extends SubsystemBase {
   private CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.intakeMotorID, MotorType.kBrushless);
+  private CANSparkMax tempShooter = new CANSparkMax(8, MotorType.kBrushless);
 
   /** Creates a new BallTransitSystem. */
   public BallTransitSystem() {
@@ -28,8 +29,6 @@ public class BallTransitSystem extends SubsystemBase {
   public void stop() {
     intakeMotor.set(0);
   }
-
-  
 
   @Override
   public void periodic() {
